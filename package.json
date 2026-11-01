@@ -1,0 +1,35 @@
+{
+  "name": "vehicle-provenance",
+  "version": "1.0.0",
+  "description": "Prototype: off-chain evidence, on-chain attestations and NFC hallmark verification for collectible vehicles",
+  "author": "Adam Hmida Loghmari",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --import tsx --test test/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "fund": "tsx scripts/fund.ts",
+    "demo": "tsx scripts/demo.ts",
+    "serve": "tsx src/server.ts",
+    "demo:local": "tsx scripts/demo.ts --local",
+    "serve:local": "tsx src/server.ts --local"
+  },
+  "dependencies": {
+    "@solana/web3.js": "^1.99.0",
+    "better-sqlite3": "^13.0.3",
+    "bs58": "^6.0.0",
+    "litesvm": "^0.8.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^9.6.0",
+    "@types/node": "^26.6.6",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "jayson": "^5.0.0"
+  }
+}

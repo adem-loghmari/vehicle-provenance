@@ -1,0 +1,9 @@
+SERVICE BOOK (transcribed scan, sample data)
+Vehicle: Porsche 911 Carrera RS 2.7, chassis 9113600XXX (sample)
+
+1973-11-14  Delivery, Porsche Zentrum Stuttgart, 0 km
+1974-06-02  First service, 1,000 km, oil and filters
+1976-09-21  Major service, 38,420 km, valve adjustment
+1981-03-10  Engine rebuild, 112,900 km, invoice #4471, original case retained
+1989-07-18  Repaint, Grand Prix White, body shop Mueller, Esslingen
+1998-05-05  Service, 164,300 km, new clutch

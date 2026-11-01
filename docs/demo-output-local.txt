@@ -1,0 +1,56 @@
+Network: local (in-process Solana runtime, nothing leaves this machine)
+
+== 1. Owner registers a 1973 Porsche 911 Carrera RS
+   ok    record veh_19673d115997fb34 anchored: local://4LgSK3Tj92qBwmaJY5omDLS6W5p8KBXNCZD78p2Vqys1FB7EqXBgDM4Lw6Bd2m2D1SRvRm5dsJ6LEfE7iiZDsrHp
+   ok    on-chain memo contains the opaque record id only (no VIN, no owner)
+
+== 2. Registry staff fit an NTAG 424 DNA hallmark at inspection
+   ok    chip 0d2ba8a32ab052 bound; its key is derived from the master key + UID, nothing per-tag stored
+
+== 3. Owner uploads evidence (encrypted at rest, salted commitment anchored)
+   ok    service history  local://4W6C55YmdmWis3KqSm4LLnTzbNAer2YG8KEkxQ9rzMhG2wNpEa9pqdu3kTuFTm79giYKAooNdJw823inWwuk87gB
+   ok    chassis photo    local://3KdgLx3S5cgz6AYZQJiH1oRrrXwkCZ13XuZxgFZTQhnBKFT5grUiY95GEHzfo48GJSpLcfzQUCDMv5z71z7NWxVM
+   ok    another photo    local://2xNLsbCseECSkdbAHMQdhqzsRVVCQtjF4iqPNmXrqWnAPejgQeXMWYrXtsxWBUsPnZdH8CHHKAcQvFaVYt3PXjaQ
+   ok    valuation        local://WkWrEpLFnnDEqyNeyY84Usc1t9L655dYySncimoTTcCjzQ2XKTrKo5uTw4uWnjhYFiDnKnHtnzibBwWQGU6km43
+
+== 4. Engineer files the assessment, then revises it
+   DENY  owner tries to file an assessment (assessments can only be filed by registry engineers)
+   ok    assessment v1    local://5Y16F5RfMzb9FxH5qjMT67wNBpFLvYXh1rMfYWsYWSrizFYdsCLMWQt6rQbrbcNDDrJLfZ6RtQ91yuRJTBKyW4DQ
+   ok    assessment v2    local://2kC1NUjYQKzkKMAGKTBQCKrkPQqhdbi7oKrtn6LA8pGZLGAnGVEBi2coCcXyDhUbST3QmzSdgPSbB1i8MhZr24Bf (links to v1 on-chain)
+   DENY  owner tries to revoke the assessment (not allowed to revoke this item)
+
+== 5. Owner shares selected items with a prospective buyer for 48 hours
+   ok    grant gr_0b04f4bf1ba98c8a until 2026-11-04T04:36:26.335Z
+   ok    buyer reads the final assessment
+   DENY  buyer opens the valuation (no access)
+   ok    buyer verifies the assessment against the chain: VALID
+
+== 6. Someone taps the hallmark
+   ok    genuine tap, counter 1: 1973 Porsche 911 Carrera RS 2.7, 5 active items on record
+   DENY  same URL replayed: replayed scan: counter 1 already used (last seen 1)
+   DENY  cloned chip with copied UID but no key: invalid tag MAC
+   ok    genuine tap again, counter 2
+
+== 7. Owner withdraws the photo uploaded by mistake
+   ok    revocation anchored local://55G3pstJ8h2aegpWLSkBgcv6XA4UBBYHMLqp3SsvUrZgZSyPgbCPfAq8Y4ntHmz9wd7NEEGLJJo3p4WioTqNL5Mi (reason kept off-chain)
+
+== 8. Car is sold: custody of the record moves to the new owner
+   DENY  transfer without staff confirmation (transfer must be confirmed by registry staff)
+   ok    custody epoch 2 anchored local://HbHFqUNipX3EfBEXucv8nMLZNprU6o3kTf7VgMZWJBT6aMofYkdkesB5SUDdxMrCwWSthDncATXocsiyVotEoW1
+   DENY  previous owner opens the valuation (no access)
+   DENY  buyer:jo's grant from the previous owner (no access)
+   ok    new owner reads the full history
+   ok    new owner shares history + assessment with adviser:kim until 2026-11-05T04:36:26.369Z
+
+== 9. Independent verification against the chain
+   ok    service history: VALID
+   ok    assessment v2: VALID
+   note  assessment v1 (superseded): authentic but not current (superseded by a newer version)
+   note  wrong photo (revoked): authentic but not current (withdrawn by its uploader)
+   ok    local history is up to date with the chain
+   ok    every anchor signed by the registry
+   ok    chain reaches registration
+   ok    no local events missing from the chain: 9 on-chain, 9 local
+   ok    audit log chain: 29 entries intact
+
+Done. The local runtime ends with this process; `npm run serve:local` replays the demo and serves it.
